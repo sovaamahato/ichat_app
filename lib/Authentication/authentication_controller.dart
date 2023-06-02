@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:ichat_app/Authentication/login_page.dart';
+import 'package:ichat_app/Authentication/sign_up_page.dart';
 import 'user.dart' as userModel;
 
 class AuthenticationController extends GetxController {
@@ -37,5 +38,24 @@ class AuthenticationController extends GetxController {
       Get.to(LoginPage());
     }
 
+
+
+
+  }
+
+
+  void LoginNewUser(String userEmail, String password)async{
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: password);
+      Get.snackbar("Congratulations!!1","login Succefful");
+      Get.to(SignUpPage());
+
+
+    }
+    catch(error){
+      Get.snackbar("Error", "Login unsuccessful");
+      Get.to(LoginPage());
+    }
+    
   }
 }

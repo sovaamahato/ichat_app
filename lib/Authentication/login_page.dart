@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ichat_app/Authentication/sign_up_page.dart';
+//import 'package:ichat_app/Authentication/sign_up_page.dart';
 import 'package:ichat_app/components/my_textfield.dart';
+
+import 'authentication_controller.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,6 +14,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+    var authenticationController =AuthenticationController.instanceAuth;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,7 +88,18 @@ class _LoginPageState extends State<LoginPage> {
               ),
               //login button----------------------
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+
+                  if(
+                  emailController.text.isNotEmpty&&
+                  passwordController.text.isNotEmpty){
+
+                    authenticationController.LoginNewUser(
+                      emailController.text,
+                      passwordController.text
+                    );
+                  }
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width - 10,
                   height: 50,
