@@ -7,8 +7,10 @@ import 'package:ichat_app/Authentication/sign_up_page.dart';
 import 'Authentication/login_page.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp().then(
+
+  await WidgetsFlutterBinding.ensureInitialized();
+  
+   Firebase.initializeApp().then(
     (value) {
       Get.put(AuthenticationController());
     },
@@ -24,6 +26,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
+
+      initialBinding: BindingsBuilder(() {
+        Get.put(AuthenticationController());
+      }),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),

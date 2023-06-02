@@ -98,6 +98,17 @@ class _SignUpPageState extends State<SignUpPage> {
         //login button----------------------
               GestureDetector(
                  onTap: () {
+
+                  if(userNameController.text.isNotEmpty &&
+                  emailController.text.isNotEmpty&&
+                  passwordController.text.isNotEmpty){
+                    authenticationController.createAccountForNewUser(
+                    userNameController.text,
+                    emailController.text,
+                      passwordController.text);
+
+                  }
+                  
                         
                       },
                 child: Container(
