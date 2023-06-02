@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ichat_app/Authentication/authentication_controller.dart';
 import 'package:ichat_app/components/my_textfield.dart';
 
 import 'login_page.dart';
@@ -14,6 +15,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
+  var authenticationController =AuthenticationController.instanceAuth;
 
   @override
   Widget build(BuildContext context) {

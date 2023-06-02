@@ -1,10 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ichat_app/Authentication/authentication_controller.dart';
 import 'package:ichat_app/Authentication/sign_up_page.dart';
 
 import 'Authentication/login_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp().then(
+    (value) {
+      Get.put(AuthenticationController());
+    },
+  );
   runApp(const MyApp());
 }
 
@@ -16,7 +24,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
-
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),
