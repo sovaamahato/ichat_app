@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -30,115 +30,117 @@ class _LoginPageState extends State<LoginPage> {
           ])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-
-              Center(
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 130,
+                ),
+        
+                Center(
+                    child: Container(
+                  child:const CircleAvatar(
+                    radius: 60,
+                   backgroundImage: AssetImage("lib/images/login_pic.png"),
+                  ),
+                )),
+        
+                const SizedBox(
+                  height: 20,
+                ),
+        
+                Text(
+                  "Hello there!",
+                  style: GoogleFonts.alike(fontSize: 30),
+                ),
+                Text(
+                  "Welcome",
+                  style: GoogleFonts.alikeAngular(fontSize: 20),
+                ),
+        
+                const SizedBox(
+                  height: 40,
+                ),
+                //email enter------------------------
+                MyTextField(
+                    hintText: "Email",
+                    leadingIcon: const Icon(
+                      Icons.email_outlined,
+                    ),
+                    textController: emailController,
+                    obscure: false),
+        
+                const SizedBox(
+                  height: 15,
+                ),
+        
+                MyTextField(
+                    hintText: "Password",
+                    leadingIcon: const Icon(
+                      Icons.email_outlined,
+                    ),
+                    textController: passwordController,
+                    obscure: true),
+                const SizedBox(
+                  height: 40,
+                ),
+                //login button----------------------
+                GestureDetector(
+                  onTap: () {
+        
+                    if(
+                    emailController.text.isNotEmpty&&
+                    passwordController.text.isNotEmpty){
+        
+                      authenticationController.LoginNewUser(
+                        emailController.text,
+                        passwordController.text
+                      );
+                    }
+                  },
                   child: Container(
-                child: CircleAvatar(
-                  radius: 60,
-                 backgroundImage: AssetImage("lib/images/login_pic.png"),
-                ),
-              )),
-
-              SizedBox(
-                height: 20,
-              ),
-
-              Text(
-                "Hello there!",
-                style: GoogleFonts.alike(fontSize: 30),
-              ),
-              Text(
-                "Welcome",
-                style: GoogleFonts.alikeAngular(fontSize: 20),
-              ),
-
-              SizedBox(
-                height: 40,
-              ),
-              //email enter------------------------
-              MyTextField(
-                  hintText: "Email",
-                  leadingIcon: Icon(
-                    Icons.email_outlined,
-                  ),
-                  textController: emailController,
-                  obscure: false),
-
-              SizedBox(
-                height: 15,
-              ),
-
-              MyTextField(
-                  hintText: "Password",
-                  leadingIcon: Icon(
-                    Icons.email_outlined,
-                  ),
-                  textController: passwordController,
-                  obscure: true),
-              SizedBox(
-                height: 40,
-              ),
-              //login button----------------------
-              GestureDetector(
-                onTap: () {
-
-                  if(
-                  emailController.text.isNotEmpty&&
-                  passwordController.text.isNotEmpty){
-
-                    authenticationController.LoginNewUser(
-                      emailController.text,
-                      passwordController.text
-                    );
-                  }
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 10,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(19)),
-                  child: Center(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Login Now",
-                      style: GoogleFonts.alike(
-                        fontSize: 20,
+                    width: MediaQuery.of(context).size.width - 10,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(19)),
+                    child: Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Login Now",
+                        style: GoogleFonts.alike(
+                          fontSize: 20,
+                        ),
                       ),
-                    ),
-                  )),
+                    )),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Not have an account? "),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed('/SignUpPage');
-                    },
-                    child: Text(
-                      " SignUp Now",
-                      style: TextStyle(
-                          fontSize: 17,
-                          color: Color.fromARGB(255, 202, 182, 236)),
-                    ),
-                  )
-                ],
-              )
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Not have an account? "),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/SignUpPage');
+                      },
+                      child:const  Text(
+                        " SignUp Now",
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: Color.fromARGB(255, 202, 182, 236)),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

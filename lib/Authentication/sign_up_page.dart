@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -40,14 +40,12 @@ class _SignUpPageState extends State<SignUpPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 30,
-                ),
+                
           
                
           
-                SizedBox(
-                  height: 20,
+                const SizedBox(
+                  height: 140,
                 ),
           
                 Text(
@@ -58,42 +56,42 @@ class _SignUpPageState extends State<SignUpPage> {
                   "to get Started",
                   style: GoogleFonts.alikeAngular(fontSize: 30),
                 ),
-                 SizedBox(
+                 const SizedBox(
                   height: 45,
                 ),
                 //username enter------------------------
                 MyTextField(
                     hintText: "UserName",
-                    leadingIcon: Icon(
+                    leadingIcon: const Icon(
                       Icons.person_outlined,
                     ),
                     textController: userNameController,
                     obscure: false),
           
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 //email enter------------------------
                 MyTextField(
                     hintText: "Email",
-                    leadingIcon: Icon(
+                    leadingIcon:const  Icon(
                       Icons.email_outlined,
                     ),
                     textController: emailController,
                     obscure: false),
           
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
           //password---------------------------
                 MyTextField(
                     hintText: "Password",
-                    leadingIcon: Icon(
+                    leadingIcon:const  Icon(
                       Icons.email_outlined,
                     ),
                     textController: passwordController,
                     obscure: true),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
           //login button----------------------
@@ -131,7 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     )),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -142,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     {
                       Get.to(LoginPage());
                     },
-                    child: Text(" Login Now",style: TextStyle(fontSize: 17,
+                    child: const Text(" Login Now",style: TextStyle(fontSize: 17,
                     color: Color.fromARGB(255, 202, 182, 236)),),
                   )],
                 )

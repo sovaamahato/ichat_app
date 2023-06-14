@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:ichat_app/Authentication/login_page.dart';
-import 'package:ichat_app/Authentication/sign_up_page.dart';
+//import 'package:ichat_app/Authentication/sign_up_page.dart';
+import '../pages/home_page.dart';
 import 'user.dart' as userModel;
 
 class AuthenticationController extends GetxController {
   static AuthenticationController instanceAuth = Get.find();
-
+late Rx<User?>_currentUser;
   //---------------------method to create new account
 
   void createAccountForNewUser(
@@ -33,9 +34,10 @@ class AuthenticationController extends GetxController {
     doc(credential.user!.uid).set(user.toJason());
 
     Get.snackbar("Congratulations!!1","Account created Succefful");
+    Get.to(LoginPage());
     }catch(error){
       Get.snackbar("Error", "Account creation unsuccessful");
-      Get.to(LoginPage());
+      
     }
 
 
@@ -43,19 +45,48 @@ class AuthenticationController extends GetxController {
 
   }
 
-
+//to login new user------
   void LoginNewUser(String userEmail, String password)async{
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: password);
-      Get.snackbar("Congratulations!!1","login Succefful");
-      Get.to(SignUpPage());
+      Get.snackbar("Congratulations!!","login Succefful");
+       Get.to(HomePage());
+      
 
 
     }
     catch(error){
       Get.snackbar("Error", "Login unsuccessful");
-      Get.to(LoginPage());
+     
     }
     
+  }
+
+
+
+  
+
+
+  //to take the user to homescreen after successfull login
+  goToScreen(User? currentUser){
+    //if not login
+    if(currentUser==null)
+    {
+      Get.to(LoginPage());
+
+    }
+    else{
+      Get.to(HomePage());
+    }
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+
+    _currentUser=Rx<User?>(FirebaseAuth.instance.currentUser); 
+    _currentUser.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(_currentUser, goToScreen);
   }
 }
