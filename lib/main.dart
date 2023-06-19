@@ -5,6 +5,7 @@ import 'package:ichat_app/Authentication/authentication_controller.dart';
 import 'package:ichat_app/Authentication/sign_up_page.dart';
 
 import 'Authentication/login_page.dart';
+import 'pages/home_page.dart';
 
 void main() async {
 
@@ -25,14 +26,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home:const HomePage(),
 
       initialBinding: BindingsBuilder(() {
         Get.put(AuthenticationController());
       }),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => LoginPage()),
+        GetPage(name: '/', page: () => const HomePage()),
         GetPage(name: '/SignUpPage', page: () => SignUpPage()),
       ],
     );

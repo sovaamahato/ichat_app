@@ -94,7 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(
                   height: 40,
                 ),
-          //login button----------------------
+          //signup button----------------------
                 GestureDetector(
                    onTap: () {
         

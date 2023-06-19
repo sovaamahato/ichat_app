@@ -48,7 +48,8 @@ late Rx<User?>_currentUser;
 //to login new user------
   void LoginNewUser(String userEmail, String password)async{
     try{
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: password);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, 
+      password: password);
       Get.snackbar("Congratulations!!","login Succefful");
        Get.to(HomePage());
       
@@ -58,6 +59,11 @@ late Rx<User?>_currentUser;
     catch(error){
       Get.snackbar("Error", "Login unsuccessful");
      
+    }
+
+
+     SignOutUser()async{
+      return await FirebaseAuth.instance.signOut();
     }
     
   }
