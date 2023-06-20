@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Authentication/authentication_controller.dart';
+import '../api/apis.dart';
 import '../components/user_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -43,14 +46,33 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top:10.0),
-        child: ListView.builder(
-          physics: BouncingScrollPhysics(),
-            itemCount: 20,
+
+      //used streambuilder coz its help in fetching data from cloud firestore database----------
+      body: StreamBuilder(
+        stream: APIs.firestore.collection("chatting_users").snapshots(),//chatting users is the name of my database .means the collections
+
+        builder: (context,snapshot){
+          // ignore: non_constant_identifier_names
+          final List=[];
+
+
+          if(snapshot.hasData){
+            final data = snapshot.data?.docs;
+
+            for(var i in data!){
+              log('Data: ${i.data()}');
+              List.add(i.data()['name']);
+            }
+          }
+          return ListView.builder(
+          physics:const  BouncingScrollPhysics(),
+            itemCount: List.length,
             itemBuilder: (context, int) {
-              return const UserCard();
-            }),
+             // return const UserCard();
+             return Text(List[int]);
+            });
+        },
+        
       ),
     );
   }

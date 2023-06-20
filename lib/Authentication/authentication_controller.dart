@@ -62,13 +62,13 @@ late Rx<User?>_currentUser;
     }
 
 
-     SignOutUser()async{
-      return await FirebaseAuth.instance.signOut();
-    }
+     
     
   }
 
-
+SignOutUser()async{
+      return await FirebaseAuth.instance.signOut();
+    }
 
   
 

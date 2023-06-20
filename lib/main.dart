@@ -4,18 +4,22 @@ import 'package:get/get.dart';
 import 'package:ichat_app/Authentication/authentication_controller.dart';
 import 'package:ichat_app/Authentication/sign_up_page.dart';
 
-import 'Authentication/login_page.dart';
+//import 'Authentication/login_page.dart';
 import 'pages/home_page.dart';
+//import 'package:firebase_core/firebase_core.dart';
+//import 'firebase_options.dart';
 
-void main() async {
+void main()  async{
 
-  await WidgetsFlutterBinding.ensureInitialized();
-  
-   Firebase.initializeApp().then(
-    (value) {
-      Get.put(AuthenticationController());
-    },
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    //options: DefaultFirebaseOptions.currentPlatform,
   );
+   //.then(
+    // (value) {
+    //   Get.put(AuthenticationController());
+    // },
+  //);
   runApp(const MyApp());
 }
 
