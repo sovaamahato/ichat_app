@@ -1,13 +1,15 @@
-import 'dart:developer';
+//import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ichat_app/model/chat_user.dart';
 
 import '../Authentication/authentication_controller.dart';
 import '../api/apis.dart';
 import '../components/user_card.dart';
 
 class HomePage extends StatefulWidget {
+
   const HomePage({super.key});
 
   @override
@@ -15,6 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
+  List<ChatUser> list=[];
   var authenticationController = AuthenticationController.instanceAuth;
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.black,
         ),
         title: const Text(
-          "iChat App",
+          "iChating App",
           style: TextStyle(color: Colors.black, fontSize: 24),
         ),
         actions: [
@@ -52,28 +56,44 @@ class _HomePageState extends State<HomePage> {
         stream: APIs.firestore.collection("chatting_users").snapshots(),//chatting users is the name of my database .means the collections
 
         builder: (context,snapshot){
-          // ignore: non_constant_identifier_names
-          final List=[];
+          
+
+          switch (snapshot.connectionState) {
+//if there is no data then show progress bar until data is loaded
+            case ConnectionState.waiting:
+            case ConnectionState.none:
+              return const Center(child: CircularProgressIndicator(),);
+
+            //if one or all data is loaded then show it
+            case ConnectionState.active:
+            case ConnectionState.done:  
 
 
-          if(snapshot.hasData){
+            //data isstored in this variable---------------------------         
             final data = snapshot.data?.docs;
-
-            for(var i in data!){
-              log('Data: ${i.data()}');
-              List.add(i.data()['name']);
-            }
+            list=data?.map((e) => ChatUser.fromSnap(e)).toList() ??[]; 
           }
-          return ListView.builder(
+
+          if(list.isNotEmpty){
+            return ListView.builder(
           physics:const  BouncingScrollPhysics(),
-            itemCount: List.length,
-            itemBuilder: (context, int) {
-             // return const UserCard();
-             return Text(List[int]);
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+             return UserCard(user: list[index],);
+             //return Text(list[index] as String);
             });
-        },
+
+          }else{
+            return const Center(child: Text("No Connection Found!"),);
+          }
+          
+             
+          }
+          // ignore: non_constant_identifier_names
+          
         
-      ),
+
+    ),
     );
   }
 }

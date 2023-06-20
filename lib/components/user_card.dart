@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ichat_app/model/chat_user.dart';
 
-class UserCard extends StatelessWidget {
-  const UserCard({super.key});
+class UserCard extends StatefulWidget {
+  final ChatUser user;
+ UserCard({ required this.user});
 
   @override
+  State<UserCard> createState() => _UserCardState();
+}
+
+class _UserCardState extends State<UserCard> {
+  @override
   Widget build(BuildContext context) {
+    var name2 = widget.user.name;
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -17,14 +25,14 @@ class UserCard extends StatelessWidget {
           leading: const CircleAvatar(
               //backgroundColor: Colors.grey[300],
               child: Icon(CupertinoIcons.person,color: Colors.black,)),
-          title: const Text(
-            "Demo User",
-            style: TextStyle(
+          title:  Text(
+           widget.user.name,
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),
-          subtitle: const Text(
-            "last message by demo user",
+          subtitle: Text(
+            widget.user.about,
             maxLines: 1,
           ),
           trailing: Text(
